@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image File</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Upload Image File for Stroke Detection (Google Net)</h2>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Choose image file (jpg):</label>
+                <input type="file" class="form-control" id="file" name="file" accept=".jpg" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+        {% if result %}
+            <div class="mt-5">
+                <h4>Result:</h4>
+                <p>Prediction: {{ result.prediction }}</p>
+                <p>Probability of stroke: {{ result.probability }}%</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
