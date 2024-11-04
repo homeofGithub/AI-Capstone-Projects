@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Audio File</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Upload Video File for Dysarthria Detection</h2>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Choose audio file (wav):</label>
+                <input type="file" class="form-control" id="file" name="file" accept=".mp4" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+        {% if result %}
+            <div class="mt-5">
+                <h4>Result:</h4>
+                <p>Prediction: {{ result.prediction }}</p>
+                <p>Probability of dysarthria: {{ result.probability }}%</p>
+                <p>Prediction_image: {{ result.prediction_image }}</p>
+                <p>Probability_image of dysarthria: {{ result.probability_image }}%</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
