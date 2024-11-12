@@ -132,3 +132,8 @@ dist
 tmp/*.wav
 tmp/*.jpg
 tmp/*.mp4
+
+.coverage
+.idea
+__pycache__
+test/__pycache__
