@@ -14,7 +14,7 @@ if not os.path.exists('tmp'):
     os.makedirs('tmp')
 
 # Load the saved model
-model = joblib.load('models/image_model.pkl')
+model = joblib.load('models/image_model 1.pkl')
 
 # Preprocess image
 def preprocess_image(image_path):
