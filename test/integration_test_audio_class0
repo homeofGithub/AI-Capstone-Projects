@@ -1,0 +1,39 @@
+import pytest
+import numpy as np
+from unittest.mock import patch
+import librosa
+from app_new import extract_mfcc, model, predict_from_mfcc
+
+# File path to the actual audio file you want to test with
+file_path = '/Users/bettyhan/School/Term6/capstone/AI-Capstone-Projects/Sample Image and Sound Files/audio_files_No_Stroke_Class_0/F01-49.wav'
+
+# Expected prediction and probability for this audio file
+expected_prediction = 0
+expected_probability = 0.49
+
+# Test function to load the audio file and make predictions
+@patch('app_new.model.predict')
+@patch('app_new.model.predict_proba')
+def test_predict_from_audio_file(mock_predict_proba, mock_predict):
+    # Load the actual audio file and extract MFCC features
+    features = extract_mfcc(file_path)
+
+    # Mock the model's prediction and probability output
+    mock_predict.return_value = [expected_prediction]  # Simulate that the model predicts class '0'
+    mock_predict_proba.return_value = [[0.51, 0.49]] 
+
+    # Get the prediction result from the model using the features extracted from the audio file
+    result = predict_from_mfcc(features)
+
+    # Verify that the model's predict and predict_proba methods were called with the correct features
+    mock_predict.assert_called_once_with(features)
+    mock_predict_proba.assert_called_once_with(features)
+
+    # Check that the result is a dictionary
+    assert isinstance(result, dict), "Result should be a dictionary"
+
+    # Check if the prediction is correct (class '0')
+    assert result['prediction'] == expected_prediction, f"Expected prediction {expected_prediction}, got {result['prediction']}"
+
+    # Check if the probability is correct and rounded to 2 decimal places
+    assert result['probability'] == round(expected_probability * 100, 2), f"Expected probability {expected_probability * 100}%, got {result['probability']}"
